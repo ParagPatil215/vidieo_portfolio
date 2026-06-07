@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Parag Patil — Portfolio
 
 A cinematic single-page portfolio inspired by the video_portfolio reference design.
@@ -49,3 +50,7 @@ parag_portfolio/
 - **Projects**: Each project card is a `<div class="project-card">` block — copy/paste to add more
 - **Contact email**: Search for `pparag096@gmail.com` to update
 - **Phone**: Search for `84327 36469` to update
+=======
+# vidieo_portfolio
+portfolio website 
+>>>>>>> ad0ca1e6580062a1ae8514ed75fd954d820f7fb6
