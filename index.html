@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Parag Patil — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+
+/* PRELOADER */
+#preloader{position:fixed;inset:0;background:#ff2a2a;z-index:99999;display:flex;align-items:center;justify-content:center;transition:transform 1.2s cubic-bezier(0.76,0,0.24,1)}
+#preloader.hidden{transform:translateY(-100%)}
+.pre-logo{font-size:clamp(2.5rem,8vw,5rem);font-weight:900;letter-spacing:-2px;position:relative;user-select:none}
+.pre-bg{color:rgba(150,0,0,0.35)}
+.pre-fill{position:absolute;top:0;left:0;white-space:nowrap;overflow:hidden;width:0;transition:width 1.4s cubic-bezier(0.77,0,0.18,1)}
+.pre-fill span{color:#fff;display:inline-block}
+.pre-fill .pre-dot{color:#000}
+
+/* NAVBAR */
+nav{position:fixed;top:0;left:0;width:100%;z-index:9999;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s;opacity:0;pointer-events:none}
+nav.visible{opacity:1;pointer-events:all}
+nav.scrolled{background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);padding:1rem 3rem}
+nav.menu-open{background:#ff2a2a}
+.nav-logo{font-size:1.5rem;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-1px}
+.nav-logo span{color:#ff2a2a}
+nav.menu-open .nav-logo span{color:#000}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-weight:500;font-size:0.95rem;position:relative;transition:color 0.3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#ff2a2a;transition:width 0.3s}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.resume-btn{padding:0.6rem 1.5rem;border-radius:999px;border:1px solid rgba(255,255,255,0.3);color:#fff;font-weight:600;font-size:0.9rem;background:rgba(255,255,255,0.08);backdrop-filter:blur(8px);cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.45rem}
+.resume-btn:hover{background:rgba(255,255,255,0.18)}
+.resume-btn svg{opacity:0.7}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:#fff;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;background:#ff2a2a;z-index:9998;padding:6rem 2rem 2rem;flex-direction:column;gap:1.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;text-decoration:none;font-size:1.3rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:1rem;transition:color 0.2s}
+.mobile-menu a:hover{color:#000}
+
+/* HERO */
+#home{position:relative;width:100%;height:100vh;overflow:hidden;background:#000}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.55}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);z-index:1}
+.hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 3rem 8%;max-width:1200px;margin:0 auto;right:0;left:0}
+.hero-text h1{font-size:clamp(2rem,5vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:1rem;letter-spacing:-1px}
+.hero-text h1 .outline{color:transparent;-webkit-text-stroke:1.5px #fff}
+.hero-text p{font-size:clamp(0.9rem,1.5vw,1.1rem);color:rgba(255,255,255,0.85);max-width:420px;margin-bottom:2rem;font-weight:500}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{padding:0.65rem 1.8rem;border-radius:999px;background:#fff;color:#000;font-weight:700;font-size:0.9rem;border:none;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.btn-primary:hover{background:#eee;transform:scale(1.04)}
+.btn-ghost{padding:0.65rem 1.8rem;border-radius:999px;background:rgba(0,0,0,0.35);border:1px solid #fff;color:#fff;font-weight:600;font-size:0.9rem;cursor:pointer;backdrop-filter:blur(8px);transition:all 0.3s;text-decoration:none}
+.btn-ghost:hover{background:rgba(0,0,0,0.6)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;animation:bounce 2s infinite}
+.mute-btn{position:absolute;bottom:2.5rem;right:2rem;z-index:3;background:rgba(0,0,0,0.45);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:0.5rem 1.1rem;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:0.45rem;transition:all 0.3s}
+.mute-btn:hover{background:rgba(0,0,0,0.7);border-color:rgba(255,255,255,0.4)}
+
+/* ABOUT — Editorial redesign */
+#about{background:#ff2a2a;padding:0;position:relative;overflow:hidden}
+.about-top-bar{padding:4rem 3rem 0;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem}
+.about-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:1rem}
+.about-intro-text{font-size:0.9rem;color:rgba(255,255,255,0.45);font-weight:500;max-width:280px;line-height:1.6}
+.about-big-name{font-size:clamp(4.5rem,10vw,9rem);font-weight:900;color:#fff;letter-spacing:-4px;line-height:0.88;text-align:right;text-transform:uppercase;opacity:0.06;user-select:none}
+.about-main{max-width:1200px;margin:0 auto;padding:2.5rem 3rem 0;display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:start}
+/* Sidebar: photo card + quick facts */
+.about-sidebar{display:flex;flex-direction:column;gap:1.2rem}
+.about-photo-card{background:#111;border-radius:1.2rem;padding:0.6rem;box-shadow:0 20px 50px rgba(0,0,0,0.6);position:relative;border:1px solid rgba(255,255,255,0.06)}
+.about-photo-card::before{content:'PARAG';position:absolute;bottom:-14px;right:-8px;font-size:3rem;font-weight:900;color:rgba(255,255,255,0.05);letter-spacing:-2px;pointer-events:none;line-height:1}
+.about-photo-img{width:100%;aspect-ratio:4/5;border-radius:0.8rem;background:linear-gradient(135deg,#1a1a1a,#2a0a0a);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:5rem;color:rgba(255,255,255,0.1)}
+.about-quick-facts{background:rgba(0,0,0,0.35);border-radius:1rem;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;border:1px solid rgba(255,255,255,0.06);flex:1;min-width:0}
+.about-fact-row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:0.65rem;gap:0.5rem}
+.about-fact-row:last-child{border-bottom:none;padding-bottom:0}
+.about-fact-label{font-size:0.55rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);flex-shrink:0}
+.about-fact-value{font-size:0.75rem;font-weight:700;color:#fff;text-align:right;line-height:1.3}
+/* Main content */
+.about-content{padding-top:0.5rem}
+.about-content h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1.4rem}
+.about-content h2 em{font-style:normal;color:rgba(255,255,255,0.25)}
+.about-bio{font-size:0.95rem;color:rgba(255,255,255,0.6);line-height:1.75;font-weight:500;margin-bottom:1.4rem}
+.about-bio strong{color:#fff;font-weight:900}
+/* Skills */
+.about-skills-label{font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem;display:block}
+.skills-grid{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2rem}
+.skill-pill{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:0.4rem 0.9rem;font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.75)}
+/* Stats row */
+.about-stats{display:flex;gap:2rem;margin-bottom:2rem;padding:1.2rem 1.4rem;background:rgba(0,0,0,0.3);border-radius:1rem;border:1px solid rgba(255,255,255,0.06)}
+.about-stat{display:flex;flex-direction:column;gap:2px}
+.about-stat-num{font-size:1.8rem;font-weight:900;color:#ff2a2a;letter-spacing:-1px;line-height:1}
+.about-stat-label{font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+/* Resume btn */
+.about-resume-btn{display:inline-flex;align-items:center;gap:0.55rem;padding:0.7rem 1.6rem;background:#ff2a2a;color:#fff;border-radius:999px;font-weight:700;font-size:0.88rem;text-decoration:none;transition:all 0.3s;cursor:pointer;font-family:'Space Grotesk',sans-serif}
+.about-resume-btn:hover{background:#e01c1c;transform:scale(1.04);box-shadow:0 8px 24px rgba(255,42,42,0.35)}
+/* Wave divider */
+.about-divider{position:relative;margin-top:4rem;pointer-events:none}
+.star-deco{position:absolute;color:#ff2a2a;opacity:0.15;animation:pulse 3s ease-in-out infinite;font-size:4rem;line-height:1}
+@keyframes pulse{0%,100%{opacity:0.1}50%{opacity:0.22}}
+
+/* PROJECTS — POKER CARDS */
+#projects{background:#0a0a0a;padding:6rem 3rem 8rem;position:relative;overflow:hidden}
+.section-tag{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:0.4rem 1.2rem;font-size:0.8rem;color:#666;font-weight:700;margin-bottom:1.5rem;background:#fff}
+.section-tag.dark{border-color:rgba(255,255,255,0.15);color:#888;background:#1a1a1a}
+.projects-header{max-width:1100px;margin:0 auto 3.5rem}
+.projects-header h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-1px;max-width:560px}
+.projects-header p{color:rgba(255,255,255,0.3);font-size:0.85rem;font-weight:500;margin-top:0.75rem}
+.projects-tag-proj{border-color:rgba(255,255,255,0.12);color:#888;background:#1a1a1a}
+/* Card table */
+.cards-table{max-width:1100px;margin:0 auto;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;perspective:1200px;padding-bottom:1rem}
+/* Each card wrapper */
+.poker-card-wrap{width:160px;height:228px;perspective:900px;cursor:pointer;position:relative;flex-shrink:0;-webkit-perspective:900px}
+.poker-card-wrap:nth-child(1){transform:rotate(-4deg) translateY(10px)}
+.poker-card-wrap:nth-child(2){transform:rotate(-1.5deg) translateY(4px)}
+.poker-card-wrap:nth-child(3){transform:rotate(1deg) translateY(0)}
+.poker-card-wrap:nth-child(4){transform:rotate(3.5deg) translateY(6px)}
+.poker-card-wrap:nth-child(5){transform:rotate(-2deg) translateY(8px)}
+.poker-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.58s cubic-bezier(0.4,0,0.2,1);-webkit-transform-style:preserve-3d;-webkit-transition:transform 0.58s cubic-bezier(0.4,0,0.2,1)}
+.poker-card-wrap.flipped .poker-card-inner{transform:rotateY(180deg);-webkit-transform:rotateY(180deg)}
+.poker-card-wrap:not(.flipped):hover .poker-card-inner{transform:translateY(-12px);-webkit-transform:translateY(-12px)}
+.poker-card-face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;transform:translateZ(0);-webkit-transform:translateZ(0)}
+/* FRONT */
+.poker-front{background:#faf7f0;border:1px solid #e0d8c8;display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.3)}
+.poker-corner{display:flex;flex-direction:column;align-items:flex-start;line-height:1;gap:1px}
+.poker-corner.poker-corner-br{align-items:flex-end;transform:rotate(180deg)}
+.poker-rank{font-size:1.2rem;font-weight:900;font-family:Georgia,serif;color:#1a1a1a;line-height:1}
+.poker-suit-sm{font-size:0.95rem;line-height:1}
+.poker-card-red .poker-rank,.poker-card-red .poker-suit-sm{color:#cc2020}
+.poker-center{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.poker-proj-name{font-size:0.72rem;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#1a1a1a;line-height:1.3;font-family:'Space Grotesk',sans-serif}
+.poker-suit-big{font-size:2.6rem;line-height:1;color:#1a1a1a}
+.poker-card-red .poker-suit-big{color:#cc2020}
+.poker-flip-hint{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:0.48rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,0,0,0.22);white-space:nowrap;font-family:sans-serif}
+/* BACK */
+.poker-back{background:#111;border:1px solid rgba(255,42,42,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;padding:13px;box-shadow:0 8px 28px rgba(0,0,0,0.65),0 0 0 1px rgba(255,42,42,0.12);gap:7px;position:relative;overflow:hidden}
+.poker-back::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#ff2a2a}
+.poker-back-tag{font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#ff2a2a;font-family:sans-serif}
+.poker-back-title{font-size:0.78rem;font-weight:900;color:#fff;line-height:1.3;font-family:'Space Grotesk',sans-serif;flex-shrink:0}
+.poker-back-desc{font-size:0.62rem;color:rgba(255,255,255,0.52);line-height:1.55;font-family:sans-serif;flex:1;overflow:hidden}
+.poker-tech-row{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
+.poker-tech-pill{background:rgba(255,42,42,0.12);border:1px solid rgba(255,42,42,0.28);border-radius:999px;padding:2px 7px;font-size:0.5rem;font-weight:700;color:rgba(255,110,110,0.9);font-family:sans-serif;letter-spacing:0.05em}
+.poker-links{display:flex;gap:5px;margin-top:4px}
+.poker-link-btn{flex:1;padding:5px 0;background:#ff2a2a;border:none;border-radius:999px;color:#fff;font-size:0.5rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:sans-serif;text-align:center;text-decoration:none;display:block;transition:background 0.2s}
+.poker-link-btn:hover{background:#e01c1c}
+.poker-link-btn.poker-ghost{background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.45)}
+.poker-link-btn.poker-ghost:hover{border-color:#ff2a2a;color:#ff2a2a}
+.poker-link-btn.poker-dim{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.2);cursor:default;pointer-events:none}
+
+/* EXPERIENCE */
+#experience{background:#0a0a0a;padding:6rem 3rem;color:#fff}
+.exp-inner{max-width:1100px;margin:0 auto}
+.exp-header{margin-bottom:4rem}
+.exp-header h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-1px;max-width:500px;line-height:1.1}
+.exp-header p{color:rgba(255,255,255,0.45);margin-top:0.75rem;font-size:0.95rem;max-width:460px}
+.exp-item{border-top:1px solid rgba(255,255,255,0.1);padding:2.5rem 0;display:grid;grid-template-columns:1fr 2fr;gap:3rem;transition:all 0.3s}
+.exp-item:hover{border-top-color:rgba(255,42,42,0.5)}
+.exp-cat{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#ff2a2a;display:block;margin-bottom:0.4rem}
+.exp-company{font-size:1.4rem;font-weight:900;color:#fff;display:block;margin-bottom:0.4rem}
+.exp-date{font-size:0.8rem;color:rgba(255,255,255,0.4);font-weight:500;display:block}
+.exp-desc{font-size:0.95rem;color:rgba(255,255,255,0.65);line-height:1.7;font-weight:400;align-self:center}
+
+/* CONTACT */
+#contact{background:#0a0a0a;border-top:1px solid #1a1a1a}
+.contact-split{display:grid;grid-template-columns:1fr 1.6fr;min-height:520px}
+.contact-left{background:#ff2a2a;padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.contact-left::after{content:'CONTACT';position:absolute;bottom:-28px;left:-8px;font-size:7rem;font-weight:900;color:rgba(0,0,0,0.1);line-height:1;white-space:nowrap;letter-spacing:-3px;pointer-events:none}
+.contact-left-top{position:relative;z-index:1}
+.contact-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:1rem;display:block}
+.contact-left h2{font-size:3.2rem;font-weight:900;color:#fff;line-height:0.95;letter-spacing:-2px}
+.contact-left h2 em{font-style:normal;color:rgba(0,0,0,0.35)}
+.contact-info{position:relative;z-index:1}
+.contact-info-item{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.2rem}
+.contact-icon{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:1rem;margin-top:2px}
+.contact-info-text{color:#fff;font-size:0.85rem;font-weight:500;line-height:1.5}
+.contact-info-label{font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55;display:block;margin-bottom:2px}
+.contact-right{background:#111;padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.contact-tag{font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#ff2a2a;margin-bottom:1.6rem;display:block}
+.contact-fields-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.contact-field{margin-bottom:1.2rem}
+.contact-field label{display:block;font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.45rem}
+.contact-field input,.contact-field textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:8px;padding:0.65rem 0.9rem;color:#fff;font-size:0.9rem;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color 0.3s;resize:none}
+.contact-field input::placeholder,.contact-field textarea::placeholder{color:rgba(255,255,255,0.2);font-weight:400}
+.contact-field input:focus,.contact-field textarea:focus{border-color:#ff2a2a}
+.contact-submit{display:flex;align-items:center;gap:1rem;margin-top:0.4rem}
+.contact-send-btn{padding:0.68rem 1.8rem;background:#ff2a2a;border:none;border-radius:999px;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+.contact-send-btn:hover{background:#e01c1c;transform:scale(1.04)}
+.contact-reply-note{font-size:0.72rem;color:rgba(255,255,255,0.28);font-weight:500}
+
+/* FOOTER */
+footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
+.footer-cta-band{background:#ff2a2a;padding:3rem 3.5rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;position:relative;overflow:hidden}
+.footer-cta-band::before{content:'DOWNLOAD';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-size:8rem;font-weight:900;color:rgba(0,0,0,0.07);letter-spacing:-4px;pointer-events:none;white-space:nowrap}
+.footer-cta-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:0.55rem;display:block}
+.footer-cta-headline{font-size:2.4rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-1.5px}
+.footer-cta-headline em{font-style:normal;color:rgba(0,0,0,0.32)}
+.footer-cta-sub{font-size:0.78rem;color:rgba(255,255,255,0.6);font-weight:500;margin-top:0.6rem;line-height:1.5}
+.footer-cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.9rem;flex-shrink:0;position:relative;z-index:1}
+.footer-resume-btn{padding:0.68rem 2rem;background:#000;border:none;border-radius:999px;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;white-space:nowrap;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+.footer-resume-btn:hover{background:#222;transform:scale(1.04)}
+.footer-resume-btn svg{opacity:0.7}
+.footer-cta-email{font-size:0.75rem;color:rgba(0,0,0,0.42);font-weight:600}
+.footer-body{padding:2.6rem 3.5rem 0;background:#0a0a0a}
+.footer-mid{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem}
+.footer-nav-label{font-size:0.55rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:0.9rem;display:block}
+.footer-nav-links{display:flex;gap:1.6rem;flex-wrap:wrap;align-items:center}
+.footer-nav-links a{font-size:0.63rem;color:rgba(255,255,255,0.32);text-decoration:none;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
+.footer-nav-links a:hover{color:#ff2a2a}
+.footer-mid-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.45rem;flex-shrink:0}
+.footer-avail-row{display:flex;align-items:center;gap:0.45rem}
+.footer-avail-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.footer-avail-text{font-size:0.68rem;color:rgba(255,255,255,0.32);font-weight:600}
+.footer-location-text{font-size:0.62rem;color:rgba(255,255,255,0.18);font-weight:500}
+.footer-wordmark-wrap{overflow:hidden;margin:0 -3.5rem}
+.footer-wordmark{font-size:clamp(5rem,14vw,11rem);font-weight:900;letter-spacing:-5px;color:#ff2a2a;line-height:0.88;text-transform:lowercase;white-space:nowrap;padding:0.4rem 3.5rem 0;cursor:default;transition:color 0.4s;user-select:none;opacity:0.35}
+.footer-wordmark:hover{opacity:0.55}
+.footer-base-divider{height:1px;background:rgba(255,255,255,0.05)}
+.footer-bottom-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 1.6rem}
+.footer-copy-text{font-size:0.58rem;color:rgba(255,255,255,0.15);font-weight:500;letter-spacing:0.04em}
+.footer-social-links{display:flex;gap:0.4rem}
+.footer-social-link{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.35);display:inline-flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;text-decoration:none;transition:all 0.3s}
+.footer-social-link:hover{background:#ff2a2a;border-color:#ff2a2a;color:#fff}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-left{opacity:0;transform:translateX(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-left.visible{opacity:1;transform:translateX(0)}
+
+/* RESPONSIVE — MOBILE */
+@media(max-width:900px){
+
+  /* NAV */
+  nav{padding:1rem 1.2rem}
+  nav.scrolled{padding:0.8rem 1.2rem}
+  nav.visible{opacity:1;pointer-events:all}
+  .nav-links,.resume-btn{display:none}
+  .hamburger{display:flex}
+
+  /* HERO */
+  .hero-content{padding:0 1.2rem 14% 1.2rem}
+  .hero-text h1{font-size:clamp(1.8rem,7vw,2.8rem)}
+  .hero-text p{font-size:0.9rem;max-width:100%}
+  .btn-primary,.btn-ghost{padding:0.6rem 1.3rem;font-size:0.85rem}
+  .mute-btn{bottom:1.2rem;right:1rem;padding:0.4rem 0.8rem;font-size:0.72rem}
+  .scroll-indicator{display:none}
+
+  /* ABOUT */
+  #about{padding:0}
+  .about-top-bar{padding:2.5rem 1.2rem 0;flex-direction:column;gap:0.3rem}
+  .about-big-name{font-size:clamp(3rem,14vw,5rem);text-align:left;letter-spacing:-2px;opacity:0.07}
+  .about-intro-text{max-width:100%;font-size:0.85rem}
+  .about-main{grid-template-columns:1fr;padding:1.5rem 1.2rem 0;gap:1.5rem}
+  .about-sidebar{flex-direction:row;flex-wrap:nowrap;gap:0.75rem;align-items:flex-start}
+  .about-photo-card{width:120px;flex-shrink:0}
+  .about-quick-facts{flex:1;min-width:0;padding:0.8rem}
+  .about-fact-label{font-size:0.5rem;letter-spacing:0.08em}
+  .about-fact-value{font-size:0.68rem}
+  .about-content h2{font-size:clamp(1.5rem,5vw,2rem)}
+  .about-bio{font-size:0.88rem}
+  .about-stats{flex-wrap:wrap;gap:1rem;padding:1rem}
+  .about-stat-num{font-size:1.4rem}
+  .skills-grid{gap:0.4rem}
+  .skill-pill{font-size:0.72rem;padding:0.35rem 0.75rem}
+  .about-divider svg{margin-top:2.5rem}
+
+  /* PROJECTS */
+  #projects{padding:3rem 0 5rem}
+  .projects-header{padding:0 1.2rem;margin-bottom:2.5rem}
+  .projects-header h2{font-size:clamp(1.5rem,5vw,2.2rem)}
+  .cards-table{gap:12px;padding:0.5rem 1.2rem 1.5rem;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .cards-table::-webkit-scrollbar{display:none}
+  .poker-card-wrap{width:148px;height:210px;flex-shrink:0}
+  .poker-card-wrap:nth-child(n){transform:none}
+  .poker-rank{font-size:1rem}
+  .poker-suit-big{font-size:2rem}
+  .poker-proj-name{font-size:0.62rem}
+
+  /* EXPERIENCE */
+  #experience{padding:3rem 1.2rem}
+  .exp-header{margin-bottom:2.5rem}
+  .exp-header h2{font-size:clamp(1.5rem,5vw,2.2rem)}
+  .exp-item{grid-template-columns:1fr;gap:0.75rem;padding:1.8rem 0}
+  .exp-company{font-size:1.1rem}
+  .exp-desc{font-size:0.88rem}
+
+  /* CONTACT */
+  .contact-split{grid-template-columns:1fr}
+  .contact-left{padding:2.5rem 1.2rem;min-height:auto}
+  .contact-left h2{font-size:2.2rem}
+  .contact-right{padding:2rem 1.2rem 2.5rem}
+  .contact-fields-row{grid-template-columns:1fr}
+
+  /* FOOTER */
+  .footer-cta-band{flex-direction:column;align-items:flex-start;padding:2.5rem 1.2rem;gap:1.5rem}
+  .footer-cta-headline{font-size:1.7rem;letter-spacing:-1px}
+  .footer-cta-right{align-items:flex-start}
+  .footer-resume-btn{font-size:0.85rem}
+  .footer-body{padding:2rem 1.2rem 0}
+  .footer-mid{flex-direction:column;gap:1.5rem}
+  .footer-mid-right{align-items:flex-start}
+  .footer-nav-links{gap:1rem}
+  .footer-wordmark-wrap{margin:0 -1.2rem}
+  .footer-wordmark{padding:0.4rem 1.2rem 0;font-size:clamp(3.5rem,16vw,7rem);letter-spacing:-3px}
+  .footer-bottom-row{flex-direction:column;align-items:flex-start;gap:0.8rem;padding-bottom:2rem}
+  .footer-social-links{gap:0.5rem}
+  .footer-copy-text{font-size:0.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo">
+    <div class="pre-bg">parag<span style="color:rgba(150,0,0,0.35)">.</span></div>
+    <div class="pre-fill" id="preFill"><span>parag</span><span class="pre-dot">.</span></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">parag<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="assets/resume.pdf" download="Parag_Patil_Resume.pdf" class="resume-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Resume
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="assets/resume.pdf" download="Parag_Patil_Resume.pdf" onclick="closeMobile()" style="background:#fff;color:#ff2a2a;padding:0.8rem 1.5rem;border-radius:999px;text-align:center;font-weight:900;border:none">↓ Download Resume</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <video class="hero-video" id="heroVideo" loop muted playsinline preload="none">
+    <source src="assets/hero.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="fade-up">Hi, I'm a<br/><span class="outline">Full Stack Developer</span></h1>
+      <p class="fade-up" style="transition-delay:0.2s">I build fast, scalable and modern web applications using Java, Spring Boot, React, and more.</p>
+      <div class="hero-btns fade-up" style="transition-delay:0.4s">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost">Contact Me</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+  <button class="mute-btn" id="muteBtn" aria-label="Toggle audio">
+    <svg id="muteIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <span id="muteTxt">Unmute</span>
+  </button>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="star-deco" style="top:3rem;right:8rem">★</div>
+  <div class="star-deco" style="bottom:6rem;left:4rem;font-size:5rem;animation-delay:1.2s">★</div>
+
+  <!-- Top bar: eyebrow left, big ghost name right -->
+  <div class="about-top-bar fade-up">
+    <div>
+      <span class="about-eyebrow">About me</span>
+      <p class="about-intro-text">Full stack developer and VR builder from Nashik, India.</p>
+    </div>
+    <div class="about-big-name">PARAG</div>
+  </div>
+
+  <!-- Main grid: sidebar + content -->
+  <div class="about-main">
+    <!-- Sidebar -->
+    <div class="about-sidebar fade-up">
+      <div class="about-photo-card">
+        <img src="assets/author.png" style="width:100%;aspect-ratio:4/5;border-radius:0.8rem;object-fit:cover;object-position:center top"/>
+      </div>
+      <div class="about-quick-facts">
+        <div class="about-fact-row">
+          <span class="about-fact-label">Based in</span>
+          <span class="about-fact-value">Nashik, India</span>
+        </div>
+        <div class="about-fact-row">
+          <span class="about-fact-label">Degree</span>
+          <span class="about-fact-value">B.E. Computer Eng.</span>
+        </div>
+        <div class="about-fact-row">
+          <span class="about-fact-label">Interests</span>
+          <span class="about-fact-value">VR · Web · Robotics</span>
+        </div>
+        <div class="about-fact-row">
+          <span class="about-fact-label">Status</span>
+          <span class="about-fact-value" style="color:#22c55e">● Open to work</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="about-content fade-left">
+      <h2>Building things that<br/><em>actually matter.</em></h2>
+      <p class="about-bio">Hi, I'm <strong>Parag Patil</strong>, a full stack developer based in Nashik, Maharashtra. I love building web apps that are fast, clean and actually solve real problems. Currently pursuing my Bachelor's in Computer Engineering at <strong>Sandip Institute of Engineering and Management (SPPU)</strong>.</p>
+      <p class="about-bio">I've interned at <strong>Central Railway</strong> as a Software Engineer and at <strong>SachiTech</strong> where I got hands-on with real projects and client work. Outside of web dev, I'm really into <strong>Virtual Reality</strong> and love exploring what's possible with immersive tech.</p>
+
+      <!-- Stats -->
+      <div class="about-stats">
+        <div class="about-stat">
+          <span class="about-stat-num">5+</span>
+          <span class="about-stat-label">Projects shipped</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">2</span>
+          <span class="about-stat-label">Internships</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">8+</span>
+          <span class="about-stat-label">Technologies</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">1</span>
+          <span class="about-stat-label">Research paper</span>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <span class="about-skills-label">Tech Stack</span>
+      <div class="skills-grid">
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">Java / Spring Boot</span>
+        <span class="skill-pill">Python / Flask</span>
+        <span class="skill-pill">MySQL / MongoDB</span>
+        <span class="skill-pill">Virtual Reality</span>
+        <span class="skill-pill">Git / GitHub</span>
+        <span class="skill-pill">HTML / CSS / Tailwind</span>
+      </div>
+
+      <a href="assets/resume.pdf" download="Parag_Patil_Resume.pdf" class="about-resume-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+    </div>
+  </div>
+
+  <div class="about-divider">
+    <svg viewBox="0 0 1200 80" preserveAspectRatio="none" style="width:100%;height:60px;display:block;fill:#0a0a0a;margin-top:4rem">
+      <path d="M321.39,40c58-7,114-20,172-28,82-11,168-12,250,0C823,24,906,52,985,65c70,12,146,18,214,2V80H0V68C59,82,130,84,189,71,242,59,282,45,321,40Z"/>
+    </svg>
+  </div>
+</section>
+
+<!-- PROJECTS — POKER CARDS -->
+<section id="projects">
+  <div class="projects-header fade-up">
+    <div class="section-tag projects-tag-proj">My Work</div>
+    <h2>Projects I've built, from web apps to VR worlds</h2>
+    <p>Tap any card to flip it and see project details</p>
+  </div>
+  <div class="cards-table fade-up" style="transition-delay:0.2s">
+
+    <!-- CIVOX — Ace of Spades -->
+    <div class="poker-card-wrap">
+      <div class="poker-card-inner">
+        <div class="poker-card-face poker-front">
+          <div class="poker-corner">
+            <span class="poker-rank">A</span>
+            <span class="poker-suit-sm">♠</span>
+          </div>
+          <div class="poker-center">
+            <div class="poker-proj-name">CIVOX</div>
+            <span class="poker-suit-big">♠</span>
+          </div>
+          <div class="poker-corner poker-corner-br">
+            <span class="poker-rank">A</span>
+            <span class="poker-suit-sm">♠</span>
+          </div>
+          <div class="poker-flip-hint">tap to reveal</div>
+        </div>
+        <div class="poker-card-face poker-back">
+          <div class="poker-back-tag">Full Stack · AI</div>
+          <div class="poker-back-title">AI Civic Complaint System</div>
+          <div class="poker-back-desc">Citizens report issues via photos. AI validates &amp; compares before/after evidence to confirm resolution.</div>
+          <div class="poker-tech-row">
+            <span class="poker-tech-pill">React</span>
+            <span class="poker-tech-pill">Spring Boot</span>
+            <span class="poker-tech-pill">Python</span>
+            <span class="poker-tech-pill">AWS</span>
+          </div>
+          <div class="poker-links">
+            <a href="https://civoxverion10.vercel.app/" target="_blank" class="poker-link-btn">Demo →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bus Tracker — King of Hearts -->
+    <div class="poker-card-wrap">
+      <div class="poker-card-inner">
+        <div class="poker-card-face poker-front poker-card-red">
+          <div class="poker-corner">
+            <span class="poker-rank">K</span>
+            <span class="poker-suit-sm">♥</span>
+          </div>
+          <div class="poker-center">
+            <div class="poker-proj-name">BUS TRACKER</div>
+            <span class="poker-suit-big">♥</span>
+          </div>
+          <div class="poker-corner poker-corner-br">
+            <span class="poker-rank">K</span>
+            <span class="poker-suit-sm">♥</span>
+          </div>
+          <div class="poker-flip-hint">tap to reveal</div>
+        </div>
+        <div class="poker-card-face poker-back">
+          <div class="poker-back-tag">Full Stack · GPS</div>
+          <div class="poker-back-title">Real-Time Bus Tracking</div>
+          <div class="poker-back-desc">GPS tracking for a special needs school. Parents &amp; admins monitor buses live, improving student safety.</div>
+          <div class="poker-tech-row">
+            <span class="poker-tech-pill">React</span>
+            <span class="poker-tech-pill">Node.js</span>
+            <span class="poker-tech-pill">Maps API</span>
+            <span class="poker-tech-pill">MySQL</span>
+          </div>
+          <div class="poker-links">
+            <span class="poker-link-btn poker-dim">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VitaLian — Queen of Diamonds -->
+    <div class="poker-card-wrap">
+      <div class="poker-card-inner">
+        <div class="poker-card-face poker-front poker-card-red">
+          <div class="poker-corner">
+            <span class="poker-rank">Q</span>
+            <span class="poker-suit-sm">♦</span>
+          </div>
+          <div class="poker-center">
+            <div class="poker-proj-name">VITALIAN</div>
+            <span class="poker-suit-big">♦</span>
+          </div>
+          <div class="poker-corner poker-corner-br">
+            <span class="poker-rank">Q</span>
+            <span class="poker-suit-sm">♦</span>
+          </div>
+          <div class="poker-flip-hint">tap to reveal</div>
+        </div>
+        <div class="poker-card-face poker-back">
+          <div class="poker-back-tag">VR · AR · Medical</div>
+          <div class="poker-back-title">Medical VR/AR Platform</div>
+          <div class="poker-back-desc">Interactive 3D anatomy &amp; surgical simulations for medical students and professionals.</div>
+          <div class="poker-tech-row">
+            <span class="poker-tech-pill">Unity</span>
+            <span class="poker-tech-pill">WebXR</span>
+            <span class="poker-tech-pill">React</span>
+            <span class="poker-tech-pill">Node.js</span>
+          </div>
+          <div class="poker-links">
+            <a href="https://vitalian.vercel.app/" target="_blank" class="poker-link-btn">Demo →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stellar — Jack of Clubs -->
+    <div class="poker-card-wrap">
+      <div class="poker-card-inner">
+        <div class="poker-card-face poker-front">
+          <div class="poker-corner">
+            <span class="poker-rank">J</span>
+            <span class="poker-suit-sm">♣</span>
+          </div>
+          <div class="poker-center">
+            <div class="poker-proj-name">STELLAR</div>
+            <span class="poker-suit-big">♣</span>
+          </div>
+          <div class="poker-corner poker-corner-br">
+            <span class="poker-rank">J</span>
+            <span class="poker-suit-sm">♣</span>
+          </div>
+          <div class="poker-flip-hint">tap to reveal</div>
+        </div>
+        <div class="poker-card-face poker-back">
+          <div class="poker-back-tag">VR · Space</div>
+          <div class="poker-back-title">Space Exploration VR</div>
+          <div class="poker-back-desc">Immersive VR platform to explore planets, galaxies and space missions through 3D simulations.</div>
+          <div class="poker-tech-row">
+            <span class="poker-tech-pill">Unity</span>
+            <span class="poker-tech-pill">C#</span>
+            <span class="poker-tech-pill">VR SDK</span>
+            <span class="poker-tech-pill">Blender</span>
+          </div>
+          <div class="poker-links">
+            <a href="https://github.com/ParagPatil215/Stellar" target="_blank" class="poker-link-btn poker-ghost">GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Robot — 10 of Spades -->
+    <div class="poker-card-wrap">
+      <div class="poker-card-inner">
+        <div class="poker-card-face poker-front">
+          <div class="poker-corner">
+            <span class="poker-rank">10</span>
+            <span class="poker-suit-sm">♠</span>
+          </div>
+          <div class="poker-center">
+            <div class="poker-proj-name">SEC ROBOT</div>
+            <span class="poker-suit-big">♠</span>
+          </div>
+          <div class="poker-corner poker-corner-br">
+            <span class="poker-rank">10</span>
+            <span class="poker-suit-sm">♠</span>
+          </div>
+          <div class="poker-flip-hint">tap to reveal</div>
+        </div>
+        <div class="poker-card-face poker-back">
+          <div class="poker-back-tag">Robotics · Arduino</div>
+          <div class="poker-back-title">Security &amp; Surveillance Robot</div>
+          <div class="poker-back-desc">Arduino robot detecting fire hazards with SMS alerts &amp; live surveillance. Published research paper.</div>
+          <div class="poker-tech-row">
+            <span class="poker-tech-pill">Arduino</span>
+            <span class="poker-tech-pill">C++</span>
+            <span class="poker-tech-pill">IoT</span>
+            <span class="poker-tech-pill">GSM</span>
+          </div>
+          <div class="poker-links">
+            <a href="https://www.ijraset.com/research-paper/security-robot-and-surveillance" target="_blank" class="poker-link-btn">Paper →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-header fade-up">
+      <div class="section-tag dark">My Journey</div>
+      <h2>Work Experience</h2>
+      <p>Each role has taught me something valuable about building real software.</p>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <span class="exp-cat">Software Engineering Internship</span>
+        <span class="exp-company">Central Railway</span>
+        <span class="exp-date">Dec 2024 – Feb 2025 · Maharashtra, India</span>
+      </div>
+      <p class="exp-desc">Worked as a Software Engineering Intern at Central Railway. Built and maintained a Resthouse Booking System, collaborated with teams to improve app performance and did code reviews to keep things clean and production-ready.</p>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <span class="exp-cat">Development Internship</span>
+        <span class="exp-company">SachiTech</span>
+        <span class="exp-date">May 2023 – Aug 2023 · Nashik, Maharashtra</span>
+      </div>
+      <p class="exp-desc">Built and maintained the company website at SachiTech using HTML, CSS and JavaScript. Created UI layouts and wireframes in Figma, implemented responsive design across devices and got my first real taste of working with a team on client-facing projects.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-split">
+    <div class="contact-left fade-up">
+      <div class="contact-left-top">
+        <span class="contact-eyebrow">Get in touch</span>
+        <h2>Let's<br/><em>work</em><br/>together.</h2>
+      </div>
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <span class="contact-info-label">Email</span>
+            pparag096@gmail.com
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <span class="contact-info-label">Phone</span>
+            +91 84327 36469
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <span class="contact-info-label">Location</span>
+            Nashik, Maharashtra, India
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <span class="contact-info-label">LinkedIn</span>
+            parag-patil215
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right fade-up" style="transition-delay:0.15s">
+      <span class="contact-tag">Send a message</span>
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="contact-fields-row">
+          <div class="contact-field"><label>First Name</label><input type="text" name="first_name" placeholder="Parag" required/></div>
+          <div class="contact-field"><label>Last Name</label><input type="text" name="last_name" placeholder="Patil" required/></div>
+        </div>
+        <div class="contact-field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required/></div>
+        <div class="contact-field"><label>Message</label><textarea rows="4" name="message" placeholder="Tell me about your project or opportunity..." required></textarea></div>
+        <div class="contact-submit">
+          <button type="submit" class="contact-send-btn" id="submitBtn">Send it &nbsp;→</button>
+          <span class="contact-reply-note" id="formStatus">I reply within 24 hours</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cta-band">
+    <div>
+      <span class="footer-cta-eyebrow">Available for work</span>
+      <div class="footer-cta-headline">Open to work.<br/><em>Let's build something.</em></div>
+      <p class="footer-cta-sub">Full Stack · VR · Robotics &nbsp;·&nbsp; Java · React · Node.js · Python</p>
+    </div>
+    <div class="footer-cta-right">
+      <a href="assets/resume.pdf" download="Parag_Patil_Resume.pdf" class="footer-resume-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+      <span class="footer-cta-email">pparag096@gmail.com</span>
+    </div>
+  </div>
+  <div class="footer-body">
+    <div class="footer-mid">
+      <div>
+        <span class="footer-nav-label">Quick Links</span>
+        <nav class="footer-nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+          <a href="https://www.linkedin.com/in/parag-patil215" target="_blank">LinkedIn</a>
+          <a href="https://github.com/ParagPatil215" target="_blank">GitHub</a>
+        </nav>
+      </div>
+      <div class="footer-mid-right">
+        <div class="footer-avail-row">
+          <span class="footer-avail-dot"></span>
+          <span class="footer-avail-text">Available for opportunities</span>
+        </div>
+        <span class="footer-location-text">Nashik, Maharashtra, India</span>
+      </div>
+    </div>
+    <div class="footer-wordmark-wrap">
+      <div class="footer-wordmark">parag</div>
+    </div>
+    <div class="footer-base-divider"></div>
+    <div class="footer-bottom-row">
+      <span class="footer-copy-text">© <span id="footer-year2"></span> Parag Patil &nbsp;·&nbsp; All rights reserved</span>
+      <div class="footer-social-links">
+        <a href="https://www.linkedin.com/in/parag-patil215" class="footer-social-link" target="_blank" aria-label="LinkedIn">in</a>
+        <a href="https://github.com/ParagPatil215" class="footer-social-link" target="_blank" aria-label="GitHub">gh</a>
+        <a href="mailto:pparag096@gmail.com" class="footer-social-link" aria-label="Email">@</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Year
+  const yr = new Date().getFullYear();
+  if(document.getElementById('footer-year2')) document.getElementById('footer-year2').textContent = yr;
+
+  // Preloader — dismisses after 2.4s no matter what
+  const video = document.getElementById('heroVideo');
+  const navbar = document.getElementById('navbar');
+
+  function revealSite() {
+    document.getElementById('preloader').classList.add('hidden');
+    navbar.classList.add('visible');
+    video.play().catch(() => {});
+    checkVisibility();
+  }
+
+  // Start fill animation immediately
+  setTimeout(() => {
+    const fill = document.getElementById('preFill');
+    if (fill) fill.style.width = '100%';
+  }, 100);
+
+  // Reveal site after animation completes
+  setTimeout(revealSite, 2400);
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    checkVisibility();
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    navbar.classList.toggle('menu-open');
+  });
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+    navbar.classList.remove('menu-open');
+  }
+
+  // Scroll animations
+  function isVisible(el) {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight - 60;
+  }
+  function checkVisibility() {
+    document.querySelectorAll('.fade-up, .fade-left').forEach(el => {
+      if (isVisible(el)) el.classList.add('visible');
+    });
+  }
+  setTimeout(checkVisibility, 2500);
+
+  // Poker card flip on click
+  document.querySelectorAll('.poker-card-wrap').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+
+  // Mute toggle
+  const muteBtn = document.getElementById('muteBtn');
+  const muteIcon = document.getElementById('muteIcon');
+  const muteTxt = document.getElementById('muteTxt');
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    if (video.muted) {
+      muteTxt.textContent = 'Unmute';
+      muteIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    } else {
+      muteTxt.textContent = 'Mute';
+      muteIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
+    }
+  });
+</script>
+<!--
+  EMAILJS SETUP (free, takes 5 mins):
+  1. Go to https://www.emailjs.com and create a free account
+  2. Add a Gmail service: Dashboard > Email Services > Add New Service > Gmail
+  3. Create a template: Email Templates > Create New Template
+     Use these variables in the template body:
+       From: {{first_name}} {{last_name}} ({{email}})
+       Message: {{message}}
+  4. Go to Account > API Keys and copy your Public Key
+  5. Replace the 3 placeholders below with your actual IDs
+-->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // ── REPLACE THESE 3 VALUES ──────────────────────────────────────
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account > API Keys
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services tab
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates tab
+  // ────────────────────────────────────────────────────────────────
+
+  try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch(e) {}
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn    = document.getElementById('submitBtn');
+    const status = document.getElementById('formStatus');
+    const form   = document.getElementById('contactForm');
+
+    if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+      status.textContent = 'EmailJS not configured yet. Email me directly!';
+      status.style.color = '#ff6b6b';
+      return;
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    status.textContent = '';
+
+    const params = {
+      first_name: form.first_name.value,
+      last_name:  form.last_name.value,
+      email:      form.email.value,
+      message:    form.message.value,
+    };
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+      btn.textContent = 'Sent ✓';
+      btn.style.background = '#22c55e';
+      status.textContent = 'Message received! I\'ll reply soon.';
+      status.style.color = '#22c55e';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send it →';
+        btn.style.background = '';
+        btn.disabled = false;
+        status.textContent = 'I reply within 24 hours';
+        status.style.color = '';
+      }, 4000);
+    } catch (err) {
+      btn.textContent = 'Send it →';
+      btn.disabled = false;
+      status.textContent = 'Something went wrong. Email me directly!';
+      status.style.color = '#ff6b6b';
+    }
+  }
+</script>
+</script>
+</body>
+</html>
