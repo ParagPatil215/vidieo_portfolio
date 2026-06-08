@@ -13,18 +13,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#0a0a0a;color:#fff;overfl
 /* PRELOADER */
 #preloader{position:fixed;inset:0;background:#ff2a2a;z-index:99999;display:flex;align-items:center;justify-content:center;transition:transform 1.2s cubic-bezier(0.76,0,0.24,1)}
 #preloader.hidden{transform:translateY(-100%)}
-<<<<<<< HEAD
 .pre-logo{font-size:clamp(2.5rem,8vw,5rem);font-weight:900;letter-spacing:-2px;position:relative;user-select:none}
 .pre-bg{color:rgba(150,0,0,0.35)}
 .pre-fill{position:absolute;top:0;left:0;white-space:nowrap;overflow:hidden;width:0;transition:width 1.4s cubic-bezier(0.77,0,0.18,1)}
 .pre-fill span{color:#fff;display:inline-block}
 .pre-fill .pre-dot{color:#000}
-=======
-.pre-logo{font-size:clamp(2.5rem,8vw,5rem);font-weight:900;letter-spacing:-2px;position:relative}
-.pre-bg{color:rgba(153,0,0,0.3)}
-.pre-fill{position:absolute;top:0;left:0;color:#fff;white-space:nowrap;overflow:hidden;width:0;transition:width 1.6s ease-in-out}
-.pre-fill span{color:#000}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 
 /* NAVBAR */
 nav{position:fixed;top:0;left:0;width:100%;z-index:9999;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s;opacity:0;pointer-events:none}
@@ -79,19 +72,11 @@ nav.menu-open .nav-logo span{color:#000}
 .about-photo-card{background:#111;border-radius:1.2rem;padding:0.6rem;box-shadow:0 20px 50px rgba(0,0,0,0.6);position:relative;border:1px solid rgba(255,255,255,0.06)}
 .about-photo-card::before{content:'PARAG';position:absolute;bottom:-14px;right:-8px;font-size:3rem;font-weight:900;color:rgba(255,255,255,0.05);letter-spacing:-2px;pointer-events:none;line-height:1}
 .about-photo-img{width:100%;aspect-ratio:4/5;border-radius:0.8rem;background:linear-gradient(135deg,#1a1a1a,#2a0a0a);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:5rem;color:rgba(255,255,255,0.1)}
-<<<<<<< HEAD
 .about-quick-facts{background:rgba(0,0,0,0.35);border-radius:1rem;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;border:1px solid rgba(255,255,255,0.06);flex:1;min-width:0}
 .about-fact-row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:0.65rem;gap:0.5rem}
 .about-fact-row:last-child{border-bottom:none;padding-bottom:0}
 .about-fact-label{font-size:0.55rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);flex-shrink:0}
 .about-fact-value{font-size:0.75rem;font-weight:700;color:#fff;text-align:right;line-height:1.3}
-=======
-.about-quick-facts{background:rgba(0,0,0,0.35);border-radius:1rem;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:0.8rem;border:1px solid rgba(255,255,255,0.06)}
-.about-fact-row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:0.7rem}
-.about-fact-row:last-child{border-bottom:none;padding-bottom:0}
-.about-fact-label{font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
-.about-fact-value{font-size:0.8rem;font-weight:700;color:#fff}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 /* Main content */
 .about-content{padding-top:0.5rem}
 .about-content h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1.4rem}
@@ -126,27 +111,16 @@ nav.menu-open .nav-logo span{color:#000}
 /* Card table */
 .cards-table{max-width:1100px;margin:0 auto;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;perspective:1200px;padding-bottom:1rem}
 /* Each card wrapper */
-<<<<<<< HEAD
 .poker-card-wrap{width:160px;height:228px;perspective:900px;cursor:pointer;position:relative;flex-shrink:0;-webkit-perspective:900px}
-=======
-.poker-card-wrap{width:160px;height:228px;perspective:900px;cursor:pointer;position:relative;flex-shrink:0}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 .poker-card-wrap:nth-child(1){transform:rotate(-4deg) translateY(10px)}
 .poker-card-wrap:nth-child(2){transform:rotate(-1.5deg) translateY(4px)}
 .poker-card-wrap:nth-child(3){transform:rotate(1deg) translateY(0)}
 .poker-card-wrap:nth-child(4){transform:rotate(3.5deg) translateY(6px)}
 .poker-card-wrap:nth-child(5){transform:rotate(-2deg) translateY(8px)}
-<<<<<<< HEAD
 .poker-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.58s cubic-bezier(0.4,0,0.2,1);-webkit-transform-style:preserve-3d;-webkit-transition:transform 0.58s cubic-bezier(0.4,0,0.2,1)}
 .poker-card-wrap.flipped .poker-card-inner{transform:rotateY(180deg);-webkit-transform:rotateY(180deg)}
 .poker-card-wrap:not(.flipped):hover .poker-card-inner{transform:translateY(-12px);-webkit-transform:translateY(-12px)}
 .poker-card-face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;transform:translateZ(0);-webkit-transform:translateZ(0)}
-=======
-.poker-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.58s cubic-bezier(0.4,0,0.2,1)}
-.poker-card-wrap.flipped .poker-card-inner{transform:rotateY(180deg)}
-.poker-card-wrap:not(.flipped):hover .poker-card-inner{transform:translateY(-12px)}
-.poker-card-face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 /* FRONT */
 .poker-front{background:#faf7f0;border:1px solid #e0d8c8;display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.3)}
 .poker-corner{display:flex;flex-direction:column;align-items:flex-start;line-height:1;gap:1px}
@@ -245,11 +219,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 .footer-bottom-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 1.6rem}
 .footer-copy-text{font-size:0.58rem;color:rgba(255,255,255,0.15);font-weight:500;letter-spacing:0.04em}
 .footer-social-links{display:flex;gap:0.4rem}
-<<<<<<< HEAD
 .footer-social-link{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.35);display:inline-flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;text-decoration:none;transition:all 0.3s}
-=======
-.footer-social-link{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,0.09);display:inline-flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.26);text-decoration:none;transition:all 0.3s}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 .footer-social-link:hover{background:#ff2a2a;border-color:#ff2a2a;color:#fff}
 
 /* ANIMATIONS */
@@ -258,7 +228,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 .fade-left{opacity:0;transform:translateX(40px);transition:opacity 0.7s ease,transform 0.7s ease}
 .fade-left.visible{opacity:1;transform:translateX(0)}
 
-<<<<<<< HEAD
 /* RESPONSIVE — MOBILE */
 @media(max-width:900px){
 
@@ -337,42 +306,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
   .footer-bottom-row{flex-direction:column;align-items:flex-start;gap:0.8rem;padding-bottom:2rem}
   .footer-social-links{gap:0.5rem}
   .footer-copy-text{font-size:0.6rem}
-=======
-/* RESPONSIVE */
-@media(max-width:900px){
-  nav{padding:1.2rem 1.5rem}
-  nav.scrolled{padding:0.8rem 1.5rem}
-  .nav-links,.resume-btn{display:none}
-  .hamburger{display:flex}
-  .hero-content{padding:0 1.5rem 12% 1.5rem;flex-direction:column;justify-content:flex-end;gap:2rem}
-  #about{padding:0}
-  .about-top-bar{padding:2.5rem 1.5rem 0;flex-direction:column;gap:0.5rem}
-  .about-big-name{font-size:5rem;text-align:left;letter-spacing:-2px}
-  .about-main{grid-template-columns:1fr;padding:1.5rem 1.5rem 0;gap:2rem}
-  .about-sidebar{flex-direction:row;flex-wrap:wrap;gap:1rem}
-  .about-photo-card{width:160px;flex-shrink:0}
-  .about-quick-facts{flex:1;min-width:160px}
-  .about-stats{flex-wrap:wrap;gap:1.2rem}
-  #projects{padding:4rem 1.5rem 6rem}
-  .cards-table{gap:14px}
-  .poker-card-wrap{width:140px;height:200px}
-  .poker-card-wrap:nth-child(n){transform:none}
-  #experience{padding:4rem 1.5rem}
-  .exp-item{grid-template-columns:1fr;gap:1rem}
-  .contact-split{grid-template-columns:1fr}
-  .contact-left{padding:2.5rem 1.5rem;min-height:auto}
-  .contact-right{padding:2.5rem 1.5rem}
-  .contact-fields-row{grid-template-columns:1fr}
-  .footer-cta-band{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}
-  .footer-cta-headline{font-size:1.8rem}
-  .footer-cta-right{align-items:flex-start}
-  .footer-body{padding:2rem 1.5rem 0}
-  .footer-mid{flex-direction:column;gap:1.5rem}
-  .footer-mid-right{align-items:flex-start}
-  .footer-wordmark-wrap{margin:0 -1.5rem}
-  .footer-wordmark{padding:0.4rem 1.5rem 0}
-  .footer-bottom-row{flex-direction:column;align-items:flex-start;gap:1rem;padding-bottom:2rem}
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 }
 </style>
 </head>
@@ -381,13 +314,8 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 <!-- PRELOADER -->
 <div id="preloader">
   <div class="pre-logo">
-<<<<<<< HEAD
     <div class="pre-bg">parag<span style="color:rgba(150,0,0,0.35)">.</span></div>
     <div class="pre-fill" id="preFill"><span>parag</span><span class="pre-dot">.</span></div>
-=======
-    <div class="pre-bg">parag<span style="color:rgba(153,0,0,0.3)">.</span></div>
-    <div class="pre-fill" id="preFill">parag<span>.</span></div>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
   </div>
 </div>
 
@@ -422,11 +350,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 
 <!-- HERO -->
 <section id="home">
-<<<<<<< HEAD
   <video class="hero-video" id="heroVideo" loop muted playsinline preload="none">
-=======
-  <video class="hero-video" id="heroVideo" loop muted playsinline>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
     <source src="assets/hero.mp4" type="video/mp4"/>
   </video>
   <div class="hero-overlay"></div>
@@ -463,11 +387,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
   <div class="about-top-bar fade-up">
     <div>
       <span class="about-eyebrow">About me</span>
-<<<<<<< HEAD
       <p class="about-intro-text">Full stack developer and VR builder from Nashik, India.</p>
-=======
-      <p class="about-intro-text">Full-stack developer, VR builder, and problem solver from Nashik, India.</p>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
     </div>
     <div class="about-big-name">PARAG</div>
   </div>
@@ -502,13 +422,8 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
     <!-- Content -->
     <div class="about-content fade-left">
       <h2>Building things that<br/><em>actually matter.</em></h2>
-<<<<<<< HEAD
       <p class="about-bio">Hi, I'm <strong>Parag Patil</strong>, a full stack developer based in Nashik, Maharashtra. I love building web apps that are fast, clean and actually solve real problems. Currently pursuing my Bachelor's in Computer Engineering at <strong>Sandip Institute of Engineering and Management (SPPU)</strong>.</p>
       <p class="about-bio">I've interned at <strong>Central Railway</strong> as a Software Engineer and at <strong>SachiTech</strong> where I got hands-on with real projects and client work. Outside of web dev, I'm really into <strong>Virtual Reality</strong> and love exploring what's possible with immersive tech.</p>
-=======
-      <p class="about-bio">Hi, I'm <strong>Parag Patil</strong> — a passionate full-stack developer dedicated to crafting clean, functional, and highly scalable web applications. I'm pursuing my Bachelor's in Computer Engineering at <strong>Sandip Institute of Engineering and Management (SPPU)</strong>.</p>
-      <p class="about-bio">I've interned at <strong>Central Railway</strong> as a Software Engineer and at <strong>SachiTech</strong> — gaining real-world project experience across enterprise and startup environments. Beyond web dev, I'm deeply invested in <strong>Virtual Reality</strong> as a medium for immersive, meaningful experiences.</p>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 
       <!-- Stats -->
       <div class="about-stats">
@@ -561,11 +476,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 <section id="projects">
   <div class="projects-header fade-up">
     <div class="section-tag projects-tag-proj">My Work</div>
-<<<<<<< HEAD
     <h2>Projects I've built, from web apps to VR worlds</h2>
-=======
-    <h2>Projects I've built — from full-stack apps to VR worlds</h2>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
     <p>Tap any card to flip it and see project details</p>
   </div>
   <div class="cards-table fade-up" style="transition-delay:0.2s">
@@ -762,11 +673,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
         <span class="exp-company">Central Railway</span>
         <span class="exp-date">Dec 2024 – Feb 2025 · Maharashtra, India</span>
       </div>
-<<<<<<< HEAD
       <p class="exp-desc">Worked as a Software Engineering Intern at Central Railway. Built and maintained a Resthouse Booking System, collaborated with teams to improve app performance and did code reviews to keep things clean and production-ready.</p>
-=======
-      <p class="exp-desc">Worked as a Software Engineer Intern at Central Railway, one of India's major railway zones. Developed, tested, and maintained internal web-based tools aimed at improving operational efficiency. Gained experience in large enterprise software environments with real-world constraints.</p>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
     </div>
     <div class="exp-item fade-up">
       <div class="exp-meta">
@@ -774,11 +681,7 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
         <span class="exp-company">SachiTech</span>
         <span class="exp-date">May 2023 – Aug 2023 · Nashik, Maharashtra</span>
       </div>
-<<<<<<< HEAD
       <p class="exp-desc">Built and maintained the company website at SachiTech using HTML, CSS and JavaScript. Created UI layouts and wireframes in Figma, implemented responsive design across devices and got my first real taste of working with a team on client-facing projects.</p>
-=======
-      <p class="exp-desc">Contributed to web development projects at SachiTech. Gained exposure to real-world software workflows, client requirement analysis, version control, and agile development practices — a key milestone in transitioning from academic to industry-ready skills.</p>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
     </div>
   </div>
 </section>
@@ -832,7 +735,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
     </div>
     <div class="contact-right fade-up" style="transition-delay:0.15s">
       <span class="contact-tag">Send a message</span>
-<<<<<<< HEAD
       <form id="contactForm" onsubmit="handleSubmit(event)">
         <div class="contact-fields-row">
           <div class="contact-field"><label>First Name</label><input type="text" name="first_name" placeholder="Parag" required/></div>
@@ -843,18 +745,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
         <div class="contact-submit">
           <button type="submit" class="contact-send-btn" id="submitBtn">Send it &nbsp;→</button>
           <span class="contact-reply-note" id="formStatus">I reply within 24 hours</span>
-=======
-      <form onsubmit="handleSubmit(event)">
-        <div class="contact-fields-row">
-          <div class="contact-field"><label>First Name</label><input type="text" placeholder="Parag" required/></div>
-          <div class="contact-field"><label>Last Name</label><input type="text" placeholder="Patil" required/></div>
-        </div>
-        <div class="contact-field"><label>Email</label><input type="email" placeholder="you@email.com" required/></div>
-        <div class="contact-field"><label>Message</label><textarea rows="4" placeholder="Tell me about your project or opportunity..." required></textarea></div>
-        <div class="contact-submit">
-          <button type="submit" class="contact-send-btn">Send it &nbsp;→</button>
-          <span class="contact-reply-note">I reply within 24 hours</span>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
         </div>
       </form>
     </div>
@@ -919,7 +809,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
   const yr = new Date().getFullYear();
   if(document.getElementById('footer-year2')) document.getElementById('footer-year2').textContent = yr;
 
-<<<<<<< HEAD
   // Preloader — dismisses after 2.4s no matter what
   const video = document.getElementById('heroVideo');
   const navbar = document.getElementById('navbar');
@@ -939,22 +828,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
 
   // Reveal site after animation completes
   setTimeout(revealSite, 2400);
-=======
-  // Preloader
-  const video = document.getElementById('heroVideo');
-  const navbar = document.getElementById('navbar');
-  video.pause();
-  window.addEventListener('load', () => {
-    const fill = document.getElementById('preFill');
-    setTimeout(() => { fill.style.width = '100%'; }, 200);
-    setTimeout(() => {
-      document.getElementById('preloader').classList.add('hidden');
-      navbar.classList.add('visible');
-      video.play().catch(() => {});
-      checkVisibility();
-    }, 2400);
-  });
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 
   // Navbar scroll
   window.addEventListener('scroll', () => {
@@ -1005,7 +878,6 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
       muteIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
     }
   });
-<<<<<<< HEAD
 </script>
 <!--
   EMAILJS SETUP (free, takes 5 mins):
@@ -1073,14 +945,5 @@ footer{font-family:'Space Grotesk',sans-serif;background:#0a0a0a}
     }
   }
 </script>
-</script>
-=======
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert('Thanks for reaching out! I\'ll get back to you soon.');
-    e.target.reset();
-  }
-</script>
->>>>>>> 3fc28e4b8ccd5764b3b427bc9da206047a26463a
 </body>
 </html>
